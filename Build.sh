@@ -5,10 +5,11 @@ libDir=Lib
 binDir=Bin
 
 
+
 function build {
 	echo -e ":: $1"
 	g++ -std=c++11 -Wall \
-		-O2 -flto -lboost_iostreams \
+		-O2 -flto \
 		-I $srcDir -I $libDir \
 		-o $binDir/$1 \
 		$srcDir/$1.cpp
@@ -18,7 +19,7 @@ function testBuild {
 	echo -e ":: $1"
 	g++ -std=c++11 -Wall \
 		-g -fsanitize=address -fno-omit-frame-pointer \
-		-lboost_unit_test_framework -lboost_iostreams \
+		-lboost_unit_test_framework  \
 		-I $srcDir -I $libDir \
 		-o $binDir/$1 \
 		$srcDir/$1.cpp
@@ -29,11 +30,10 @@ function debugBuild {
 	g++ -DKCORE_DEBUG \
 		-std=c++11 -Wall \
 		-g -fsanitize=address -fno-omit-frame-pointer \
-		-lboost_unit_test_framework -lboost_iostreams \
+		-lboost_unit_test_framework  \
 		-I $srcDir -I $libDir \
 		-o $binDir/$1 \
 		$srcDir/$1.cpp
 }
 
 build TSP
-#build Process_Heston
